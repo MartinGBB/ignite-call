@@ -1,3 +1,3 @@
 # ignite-call
 
-🚧 🚧  ⚠️ Em desenvolvimento ⚠️  🚧 🚧
+⚠️ 🚧 Em desenvolvimento 🚧 ⚠️
