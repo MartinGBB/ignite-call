@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Button,
   Heading,
@@ -8,7 +9,7 @@ import {
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { Form, Header, Container } from './styles'
+import { Form, Header, Container, FormError } from './styles'
 
 const registerFormSchema = z.object({
   username: z
@@ -30,8 +31,10 @@ export default function Register() {
   const {
     register,
     handleSubmit,
-    formState: { error, isSubmitting },
-  } = useForm<RegisterFormData>()
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerFormSchema),
+  })
 
   async function handleRegister(data: RegisterFormData) {
     console.log(data)
@@ -56,11 +59,17 @@ export default function Register() {
               {...register('username')}
             />
           </label>
+          {errors.username && (
+            <FormError size="sm">{errors.username.message}</FormError>
+          )}
 
           <label>
             <Text size="sm">Nome completo</Text>
             <TextInput placeholder="seu-nome" {...register('name')} />
           </label>
+          {errors.name && (
+            <FormError size="sm">{errors.name.message}</FormError>
+          )}
 
           <Button type="submit" disabled={isSubmitting}>
             Próximo passo
