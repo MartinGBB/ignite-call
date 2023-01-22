@@ -1,10 +1,4 @@
-import {
-  Button,
-  Heading,
-  MultiStep,
-  Text,
-  TextInput,
-} from '@martin-ignite-ui/react'
+import { Button, Heading, MultiStep, Text } from '@martin-ignite-ui/react'
 import { ArrowRight } from 'phosphor-react'
 
 import { Header, Container } from '../styles'
@@ -28,8 +22,10 @@ export default function Register() {
           <Text>Google Calendar</Text>
           <Button variant="secondary" size="sm">
             Conectar
+            <ArrowRight />
           </Button>
         </ConnectItem>
+
         <Button type="submit">
           Próximo passo
           <ArrowRight />
