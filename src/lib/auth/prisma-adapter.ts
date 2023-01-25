@@ -6,16 +6,37 @@ export function PrismaAdapter(): Adapter {
     async createUser(user) {},
 
     async getUser(id) {
-      const user = await prisma.user.findUnique({
+      const user = await prisma.user.findUniqueOrThrow({
         where: {
           id,
         },
       })
+
       return {
-        
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        email: user.email!,
+        emailVerified: null,
+        avatar_url: user.avatar_url!,
       }
     },
-    async getUserByEmail(email) {},
+    async getUserByEmail(email) {
+      const user = await prisma.user.findUniqueOrThrow({
+        where: {
+          email,
+        },
+      })
+
+      return {
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        email: user.email!,
+        emailVerified: null,
+        avatar_url: user.avatar_url!,
+      }
+    },
     async getUserByAccount({ providerAccountId, provider }) {},
     async updateUser(user) {},
     async deleteUser(userId) {},
