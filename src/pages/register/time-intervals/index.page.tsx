@@ -1,5 +1,20 @@
-import { Heading, MultiStep, Text } from '@martin-ignite-ui/react'
+import {
+  Button,
+  Checkbox,
+  Heading,
+  MultiStep,
+  Text,
+  TextInput,
+} from '@martin-ignite-ui/react'
+import { ArrowRight } from 'phosphor-react'
 import { Header, Container } from '../styles'
+import {
+  IntervalBox,
+  IntervalContainer,
+  IntervalDay,
+  IntervalInputs,
+  IntervalItem,
+} from './styles'
 
 export default function TimeIntervals() {
   return (
@@ -13,6 +28,24 @@ export default function TimeIntervals() {
 
         <MultiStep size={4} currentStep={3} />
       </Header>
+
+      <IntervalBox as="form">
+        <IntervalContainer>
+          <IntervalItem>
+            <IntervalDay>
+              <Checkbox />
+              <Text>Segunda-feira</Text>
+            </IntervalDay>
+            <IntervalInputs />
+            <TextInput size="sm" type="time" step={60} />
+            <TextInput size="sm" type="time" step={60} />
+          </IntervalItem>
+        </IntervalContainer>
+
+        <Button type="submit">
+          Próximo Passo <ArrowRight />
+        </Button>
+      </IntervalBox>
     </Container>
   )
 }
