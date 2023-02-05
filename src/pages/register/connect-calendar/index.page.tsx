@@ -6,7 +6,7 @@ import { ArrowRight, Check } from 'phosphor-react'
 import { Header, Container } from '../styles'
 import { AuthError, ConnectBox, ConnectItem } from './styles'
 
-export default function Register() {
+export default function ConnectCalendar() {
   const session = useSession()
   const router = useRouter()
   console.log(session)
