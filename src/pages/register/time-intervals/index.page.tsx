@@ -10,6 +10,7 @@ import {
 import { ArrowRight } from 'phosphor-react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { convertTimeStringToMinutes } from '../../../utils/convert-time-string-to-minutes'
 import { getWeekDays } from '../../../utils/get-week-days'
 import { Header, Container, FormError } from '../styles'
 import {
@@ -36,6 +37,15 @@ const timeIntervalsFormSchema = z.object({
     )
     .refine((intervals) => intervals.length > 0, {
       message: 'Precisa selecionar pelo menos um dia da semana!',
+    })
+    .transform((intervals) => {
+      return intervals.map((interval) => {
+        return {
+          weekDay: interval.weekDay,
+          startTimeInMinuts: convertTimeStringToMinutes(interval.startTime),
+          endTimeInMinutes: convertTimeStringToMinutes(interval.endTime),
+        }
+      })
     }),
 })
 
@@ -72,7 +82,9 @@ export default function TimeIntervals() {
 
   const intervals = watch('intervals')
 
-  async function handleSetTimeIntervals(data) {}
+  async function handleSetTimeIntervals(data) {
+    console.log(data)
+  }
 
   return (
     <Container>
