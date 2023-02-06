@@ -11,7 +11,7 @@ import { ArrowRight } from 'phosphor-react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { getWeekDays } from '../../../utils/get-week-days'
-import { Header, Container } from '../styles'
+import { Header, Container, FormError } from '../styles'
 import {
   IntervalBox,
   IntervalContainer,
@@ -128,7 +128,11 @@ export default function TimeIntervals() {
           })}
         </IntervalContainer>
 
-        <Button type="submit">
+        {errors.intervals && (
+          <FormError size="sm">{errors.intervals.message}</FormError>
+        )}
+
+        <Button type="submit" disabled={isSubmitting}>
           Próximo Passo <ArrowRight />
         </Button>
       </IntervalBox>
