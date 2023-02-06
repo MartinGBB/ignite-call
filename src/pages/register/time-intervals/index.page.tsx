@@ -31,12 +31,12 @@ export default function TimeIntervals() {
     defaultValues: {
       intervals: [
         { weekDay: 0, enabled: false, startTime: '08:00', endTime: '18:00' },
-        { weekDay: 0, enabled: true, startTime: '08:00', endTime: '18:00' },
-        { weekDay: 0, enabled: true, startTime: '08:00', endTime: '18:00' },
-        { weekDay: 0, enabled: true, startTime: '08:00', endTime: '18:00' },
-        { weekDay: 0, enabled: true, startTime: '08:00', endTime: '18:00' },
-        { weekDay: 0, enabled: true, startTime: '08:00', endTime: '18:00' },
-        { weekDay: 0, enabled: false, startTime: '08:00', endTime: '18:00' },
+        { weekDay: 1, enabled: true, startTime: '08:00', endTime: '18:00' },
+        { weekDay: 2, enabled: true, startTime: '08:00', endTime: '18:00' },
+        { weekDay: 3, enabled: true, startTime: '08:00', endTime: '18:00' },
+        { weekDay: 4, enabled: true, startTime: '08:00', endTime: '18:00' },
+        { weekDay: 5, enabled: true, startTime: '08:00', endTime: '18:00' },
+        { weekDay: 6, enabled: false, startTime: '08:00', endTime: '18:00' },
       ],
     },
   })
@@ -64,7 +64,7 @@ export default function TimeIntervals() {
 
       <IntervalBox as="form" onSubmit={handleSubmit(handleSetTimeIntervals)}>
         <IntervalContainer>
-          {fields.map((field) => {
+          {fields.map((field, index) => {
             return (
               <IntervalItem key={field.id}>
                 <IntervalDay>
@@ -72,8 +72,18 @@ export default function TimeIntervals() {
                   <Text>{weekDays[field.weekDay]}</Text>
                 </IntervalDay>
                 <IntervalInputs />
-                <TextInput size="sm" type="time" step={60} />
-                <TextInput size="sm" type="time" step={60} />
+                <TextInput
+                  size="sm"
+                  type="time"
+                  step={60}
+                  {...register(`intervals.${index}.startTime`)}
+                />
+                <TextInput
+                  size="sm"
+                  type="time"
+                  step={60}
+                  {...register(`intervals.${index}.endTime`)}
+                />
               </IntervalItem>
             )
           })}
