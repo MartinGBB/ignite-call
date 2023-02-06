@@ -19,7 +19,18 @@ import {
   IntervalItem,
 } from './styles'
 
-const timeIntervalsFormSchema = z.object({})
+const timeIntervalsFormSchema = z.object({
+  intervals: z.array(
+    z.object({
+      weekDay: z.number().min(0).max(6),
+      enabled: z.boolean(),
+      startTime: z.string(),
+      endTime: z.string(),
+    }),
+  ),
+})
+
+type TimeIntervalsFormData = z.infer<typeof timeIntervalsFormSchema>
 
 export default function TimeIntervals() {
   const {
@@ -51,7 +62,7 @@ export default function TimeIntervals() {
 
   const intervals = watch('intervals')
 
-  async function handleSetTimeIntervals() {}
+  async function handleSetTimeIntervals(data) {}
 
   return (
     <Container>
