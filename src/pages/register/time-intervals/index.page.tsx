@@ -46,7 +46,19 @@ const timeIntervalsFormSchema = z.object({
           endTimeInMinutes: convertTimeStringToMinutes(interval.endTime),
         }
       })
-    }),
+    })
+    .refine(
+      (intervals) => {
+        return intervals.every(
+          (interval) =>
+            interval.endTimeInMinutes - 60 >= interval.startTimeInMinuts,
+        )
+      },
+      {
+        message:
+          'O horário de término deve ser pelomenos 1h distante do inicio.',
+      },
+    ),
 })
 
 type TimeIntervalsFormData = z.infer<typeof timeIntervalsFormSchema>
