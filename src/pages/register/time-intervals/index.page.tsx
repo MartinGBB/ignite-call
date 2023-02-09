@@ -100,7 +100,6 @@ export default function TimeIntervals() {
     console.log(formData)
   }
 
-
   return (
     <Container>
       <Header>
