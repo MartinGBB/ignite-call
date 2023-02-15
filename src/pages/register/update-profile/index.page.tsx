@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
+  Avatar,
   Button,
   Heading,
   MultiStep,
@@ -50,6 +51,7 @@ export default function UpdateProfile() {
         <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
           <label>
             <Text>Foto de perfil</Text>
+            <Avatar src={session.data?.user.avatar_url} />
           </label>
           <label>
             <Text size="sm">Sobre você</Text>
