@@ -6,9 +6,13 @@ import {
   Text,
   TextArea,
 } from '@martin-ignite-ui/react'
+import { GetServerSideProps } from 'next'
+import { unstable_getServerSession } from 'next-auth'
+import { useSession } from 'next-auth/react'
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { buildNextAuthOption } from '../../api/auth/[...nextauth].api'
 import { Container, Header } from '../styles'
 import { FormAnotation, ProfileBox } from './styles'
 
@@ -27,6 +31,9 @@ export default function UpdateProfile() {
     resolver: zodResolver(updateProfileSchema),
   })
 
+  const session = useSession()
+
+  console.log(session)
   async function handleUpdateProfile(data: UpdateProfileData) {}
 
   return (
@@ -60,4 +67,15 @@ export default function UpdateProfile() {
       </Header>
     </Container>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await unstable_getServerSession(
+    req,
+    res,
+    buildNextAuthOption(req, res),
+  )
+  return {
+    props: { session },
+  }
 }
