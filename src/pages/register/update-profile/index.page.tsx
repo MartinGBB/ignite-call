@@ -13,6 +13,7 @@ import { useSession } from 'next-auth/react'
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { api } from '../../../lib/axios'
 import { buildNextAuthOption } from '../../api/auth/[...nextauth].api'
 import { Container, Header } from '../styles'
 import { FormAnotation, ProfileBox } from './styles'
@@ -34,8 +35,11 @@ export default function UpdateProfile() {
 
   const session = useSession()
 
-  console.log(session)
-  async function handleUpdateProfile(data: UpdateProfileData) {}
+  async function handleUpdateProfile(data: UpdateProfileData) {
+    await api.put('/users/profile', {
+      bio: data.bio,
+    })
+  }
 
   return (
     <Container>
