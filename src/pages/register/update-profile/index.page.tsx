@@ -10,6 +10,7 @@ import {
 import { GetServerSideProps } from 'next'
 import { unstable_getServerSession } from 'next-auth'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -33,12 +34,15 @@ export default function UpdateProfile() {
     resolver: zodResolver(updateProfileSchema),
   })
 
+  const router = useRouter()
   const session = useSession()
 
   async function handleUpdateProfile(data: UpdateProfileData) {
     await api.put('/users/profile', {
       bio: data.bio,
     })
+
+    await router.push(`/schedule/${session.data?.user.username}`)
   }
 
   return (
