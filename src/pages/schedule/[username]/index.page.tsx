@@ -1,5 +1,5 @@
 import { Avatar, Heading, Text } from '@martin-ignite-ui/react'
-import { GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { prisma } from '../../../lib/prisma'
 import { Container, UserHeader } from './styles'
 
@@ -21,6 +21,13 @@ export default function Schedule({ user }: ScheduleProps) {
       </UserHeader>
     </Container>
   )
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -46,6 +53,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         avatarUrl: user.avatar_url,
       },
     },
-    revalidate: 60 * 60 * 24,
+    revalidate: 60 * 60 * 24, // 1 dia
   }
 }
