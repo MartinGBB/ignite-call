@@ -4,6 +4,7 @@ import {
   CalendarActions,
   CalendarBody,
   CalendarContainer,
+  CalendarDay,
   CalendarHeader,
   CalendarTitle,
 } from './styles'
@@ -34,6 +35,22 @@ export function Calendar() {
             ))}
           </tr>
         </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <CalendarDay>1</CalendarDay>
+            </td>
+            <td>
+              <CalendarDay>2</CalendarDay>
+            </td>
+            <CalendarDay>3</CalendarDay>
+            <td></td>
+          </tr>
+        </tbody>
       </CalendarBody>
     </CalendarContainer>
   )
