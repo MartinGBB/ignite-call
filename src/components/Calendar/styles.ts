@@ -70,4 +70,12 @@ export const CalendarBody = styled('table', {
   },
 })
 
-export const CalendarDay = styled('button', {})
+export const CalendarDay = styled('button', {
+  all: 'unset',
+  width: '100%',
+  aspectRatio: '1 / 1',
+  background: '$gray600',
+  textAlign: 'center',
+  cursor: 'pointer',
+  borderRadius: '$sm',
+})
