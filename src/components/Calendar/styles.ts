@@ -47,6 +47,27 @@ export const CalendarActions = styled('div', {
   },
 })
 
-export const CalendarBody = styled('table', {})
+export const CalendarBody = styled('table', {
+  width: '100%',
+  fontFamily: '$default',
+  borderSpacing: '0.25rem',
+  tableLayout: 'fixed',
+
+  'thead th': {
+    color: '$gray200',
+    fontWeight: '$medium',
+    fontSize: '$sm',
+  },
+
+  'tbody:before': {
+    content: '',
+    paddingBottom: '0.75rem',
+    display: 'block',
+  },
+
+  'tbody td': {
+    boxSizing: 'border-box',
+  },
+})
 
 export const CalendarDay = styled('button', {})
