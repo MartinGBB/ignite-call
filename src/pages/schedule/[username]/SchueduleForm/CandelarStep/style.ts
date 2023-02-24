@@ -7,6 +7,21 @@ export const Container = styled(Box, {
   maxWidth: '100%',
   position: 'relative',
 
-  width: 540,
-  gridTemplateColumns: '1fr',
+  variants: {
+    isTimePickerOpen: {
+      true: {
+        gridTemplateColumns: '1fr 280px',
+
+        '@midia(max-width: 900px)': {
+          gridTemplateColumns: '1fr',
+        },
+      },
+      false: {
+        width: 540,
+        gridTemplateColumns: '1fr',
+      },
+    },
+  },
 })
+
+export const TimePicker = styled('div', {})
