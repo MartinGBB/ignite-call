@@ -1,4 +1,6 @@
+import dayjs from 'dayjs'
 import { CaretLeft, CaretRight } from 'phosphor-react'
+import { useState } from 'react'
 import { getWeekDays } from '../../utils/get-week-days'
 import {
   CalendarActions,
@@ -10,18 +12,36 @@ import {
 } from './styles'
 
 export function Calendar() {
+  const [currenDate, setCurrenDate] = useState(() => {
+    return dayjs().set('date', 1)
+  })
+
+  function handlePreviousMonth() {
+    const previousMonthDate = currenDate.subtract(1, 'month')
+    setCurrenDate(previousMonthDate)
+  }
+
+  function handleNextMonth() {
+    const previousMonthDate = currenDate.add(1, 'month')
+    setCurrenDate(previousMonthDate)
+  }
+
   const shortWeekdays = getWeekDays({ short: true })
+
+  const currentMonth = currenDate.format('MMMM')
+  const currentYear = currenDate.format('YYYY')
+
   return (
     <CalendarContainer>
       <CalendarHeader>
         <CalendarTitle>
-          Fevereiro <span>2022</span>
+          {currentMonth} <span>{currentYear}</span>
         </CalendarTitle>
         <CalendarActions>
-          <button>
+          <button onClick={handlePreviousMonth} title="Previous month">
             <CaretLeft />
           </button>
-          <button>
+          <button onClick={handleNextMonth} title="Next month">
             <CaretRight />
           </button>
         </CalendarActions>
