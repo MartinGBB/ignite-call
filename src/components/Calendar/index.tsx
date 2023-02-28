@@ -12,32 +12,44 @@ import {
 } from './styles'
 
 export function Calendar() {
-  const [currenDate, setCurrenDate] = useState(() => {
+  const [currentDate, setCurrenDate] = useState(() => {
     return dayjs().set('date', 1)
   })
 
   function handlePreviousMonth() {
-    const previousMonthDate = currenDate.subtract(1, 'month')
+    const previousMonthDate = currentDate.subtract(1, 'month')
     setCurrenDate(previousMonthDate)
   }
 
   function handleNextMonth() {
-    const previousMonthDate = currenDate.add(1, 'month')
+    const previousMonthDate = currentDate.add(1, 'month')
     setCurrenDate(previousMonthDate)
   }
 
   const shortWeekdays = getWeekDays({ short: true })
 
-  const currentMonth = currenDate.format('MMMM')
-  const currentYear = currenDate.format('YYYY')
+  const currentMonth = currentDate.format('MMMM')
+  const currentYear = currentDate.format('YYYY')
 
   const calendarWeeks = useMemo(() => {
     const daysInMonthArray = Array.from({
-      length: currenDate.daysInMonth(),
+      length: currentDate.daysInMonth(),
     }).map((_, i) => {
-      return currenDate.set('date', i + 1)
+      return currentDate.set('date', i + 1)
     })
-  }, [])
+
+    const firstWeekDay = currentDate.get('day')
+
+    const previousMonthFillArray = Array.from({
+      length: firstWeekDay,
+    })
+      .map((_, i) => {
+        return currentDate.subtract(i + 1, 'day')
+      })
+      .reverse()
+
+    return [...previousMonthFillArray, ...daysInMonthArray]
+  }, [currentDate])
 
   return (
     <CalendarContainer>
