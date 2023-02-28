@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { CaretLeft, CaretRight } from 'phosphor-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { getWeekDays } from '../../utils/get-week-days'
 import {
   CalendarActions,
@@ -30,6 +30,14 @@ export function Calendar() {
 
   const currentMonth = currenDate.format('MMMM')
   const currentYear = currenDate.format('YYYY')
+
+  const calendarWeeks = useMemo(() => {
+    const daysInMonthArray = Array.from({
+      length: currenDate.daysInMonth(),
+    }).map((_, i) => {
+      return currenDate.set('date', i + 1)
+    })
+  }, [])
 
   return (
     <CalendarContainer>
