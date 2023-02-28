@@ -11,6 +11,14 @@ import {
   CalendarTitle,
 } from './styles'
 
+interface CalendarWeek {
+  week: number
+  days: Array<{
+    date: dayjs.Dayjs
+    disabled: boolean
+  }>
+}
+
 export function Calendar() {
   const [currentDate, setCurrenDate] = useState(() => {
     return dayjs().set('date', 1)
@@ -48,7 +56,34 @@ export function Calendar() {
       })
       .reverse()
 
-    return [...previousMonthFillArray, ...daysInMonthArray]
+    const lastDayInCurrentMont = currentDate.set(
+      'date',
+      currentDate.daysInMonth(),
+    )
+
+    const lastWeekDay = lastDayInCurrentMont.get('day')
+
+    const nextMontFillArray = Array.from({
+      length: 7 - (lastWeekDay + 1),
+    }).map((_, i) => lastDayInCurrentMont.add(i + 1, 'day'))
+
+    const calendarDays = [
+      ...previousMonthFillArray.map((date) => {
+        return { date, disabled: true }
+      }),
+
+      ...daysInMonthArray.map((date) => {
+        return { date, disabled: false }
+      }),
+
+      nextMontFillArray.map((date) => {
+        return { date, disabled: true }
+      }),
+    ]
+
+    const calendarWeeks = calendarDays.reduce<CalendarWeeks>((weeks, _, i original) => {}, [])
+
+    return calendarDays
   }, [currentDate])
 
   return (
