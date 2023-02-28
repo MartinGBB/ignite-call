@@ -1,4 +1,6 @@
+import dayjs from 'dayjs'
 import { CaretLeft, CaretRight } from 'phosphor-react'
+import { useState } from 'react'
 import { getWeekDays } from '../../utils/get-week-days'
 import {
   CalendarActions,
@@ -10,12 +12,20 @@ import {
 } from './styles'
 
 export function Calendar() {
+  const [currenDate, setCurrenDate] = useState(() => {
+    return dayjs().set('date', 1)
+  })
+
   const shortWeekdays = getWeekDays({ short: true })
+
+  const currentMonth = currenDate.format('MMMM')
+  const currentYear = currenDate.format('YYYY')
+
   return (
     <CalendarContainer>
       <CalendarHeader>
         <CalendarTitle>
-          Fevereiro <span>2022</span>
+          {currentMonth} <span>{currentYear}</span>
         </CalendarTitle>
         <CalendarActions>
           <button>
