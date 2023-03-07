@@ -78,7 +78,7 @@ export function Calendar() {
         return { date, disabled: false }
       }),
 
-      nextMontFillArray.map((date) => {
+      ...nextMontFillArray.map((date) => {
         return { date, disabled: true }
       }),
     ]
