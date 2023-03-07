@@ -37,7 +37,7 @@ export function CalendarStep() {
         },
       })
       .then((response) => {
-        setAvailability(response)
+        setAvailability(response.data)
       })
   }, [selectedDate, username])
 
