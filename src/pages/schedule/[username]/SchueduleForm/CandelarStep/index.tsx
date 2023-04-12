@@ -14,7 +14,7 @@ import {
 
 interface Availability {
   possibleTimes: number[]
-  availabileTimes: number[]
+  availableTimes: number[]
 }
 
 export function CalendarStep() {
@@ -32,7 +32,7 @@ export function CalendarStep() {
   const { data: availability } = useQuery<Availability>(
     ['availability', selectedDateWithoutTime],
     async () => {
-      const response = await api.get(`/user/${username}/availability`, {
+      const response = await api.get(`/users/${username}/availability`, {
         params: {
           date: selectedDateWithoutTime,
         },
@@ -63,7 +63,7 @@ export function CalendarStep() {
               return (
                 <TimePickerItem
                   key={hour}
-                  disabled={!availability.availabileTimes.includes(hour)}
+                  disabled={!availability.availableTimes.includes(hour)}
                 >
                   {String(hour).padStart(2, '0')}
                 </TimePickerItem>
