@@ -35,7 +35,7 @@ export function ConfirmStep({
     console.log(data)
   }
 
-  const describedDate = dayjs(schedulingDate).format('DD[ de }MMMM[ de ]YYYY')
+  const describedDate = dayjs(schedulingDate).format('DD[ de ]MMMM[ de ]YYYY')
   const describedTime = dayjs(schedulingDate).format('HH:mm[h]')
 
   return (
