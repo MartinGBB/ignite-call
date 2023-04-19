@@ -59,6 +59,8 @@ export function CalendarStep({ onSelectedDateTime }: CalendarStepProps) {
       .set('hour', hour)
       .startOf('hour')
       .toDate()
+
+    onSelectedDateTime(dataWithTime)
   }
 
   return (
