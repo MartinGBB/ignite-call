@@ -1,15 +1,17 @@
+import dayjs from 'dayjs'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { z } from 'zod'
 import { prisma } from '../../../../lib/prisma'
-import dayjs from 'dayjs'
 
-export default async function handle(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   if (req.method !== 'POST') {
     return res.status(405).end()
   }
+
+  const username = String(req.query.username)
 
   const user = await prisma.user.findUnique({
     where: {
@@ -28,7 +30,6 @@ export default async function handle(
     date: z.string().datetime(),
   })
 
-  const username = String(req.query.username)
   const { name, email, observations, date } = createSchedulingBody.parse(
     req.body,
   )
@@ -41,16 +42,16 @@ export default async function handle(
     })
   }
 
-  const conflictingSchenduling = await prisma.scheduling.findFirst({
+  const conflictingScheduling = await prisma.scheduling.findFirst({
     where: {
       user_id: user.id,
       date: schedulingDate.toDate(),
     },
   })
 
-  if (conflictingSchenduling) {
+  if (conflictingScheduling) {
     return res.status(400).json({
-      message: 'There is another scheduling at the same time.',
+      message: 'There is another scheduling at at the same time.',
     })
   }
 
